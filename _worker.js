@@ -882,7 +882,7 @@ async function handleUDPOutBound(webSocket, vlessResponseHeader, log) {
 function getVLESSConfig(userID, hostName) {
   const wvlessws = `vless://${userID}\u0040${CDNIP}:8880?encryption=none&security=none&type=ws&host=${hostName}&path=%2F%3Fed%3D2560#${hostName}`;
   const pvlesswstls = `vless://${userID}\u0040${CDNIP}:8443?encryption=none&security=tls&type=ws&host=${hostName}&sni=${hostName}&fp=random&path=%2F%3Fed%3D2560#${hostName}`;
-  const note = `我的博客地址：https://viptv.work/about/blog.hmtl\n我的YouTube频道：https://www.youtube.com/@HeFung\n我的TG电报群组：https://t.me/+NxBP4B8D-VNmOTZl\n我的TG电报频道：https://t.me/viptv_work\n\nProxyIP全局运行中：${proxyIP}`;
+  const note = `我的博客地址：https://viptv.work/about/blog.hmtl\n我的YouTube频道：https://www.youtube.com/@HeFung\n我的TG电报群组：https://t.me/viptv_work_group\n我的TG电报频道：https://t.me/viptv_work\n\nProxyIP全局运行中：${proxyIP}`;
   const ty = `https://${hostName}/${userID}/ty`;
   const cl = `https://${hostName}/${userID}/cl`;
   const sb = `https://${hostName}/${userID}/sb`;
