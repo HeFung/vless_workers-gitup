@@ -7,41 +7,41 @@ import { connect } from "cloudflare:sockets";
 let userID = "77a571fb-4fd2-4b37-8596-1b7d9728bb5c";
 
 const proxyIPs = ["proxy.xxxxxxxx.tk"]; //ts.hpc.tw edgetunnel.anycast.eu.org bestproxy.onecf.eu.org cdn-all.xn--b6gac.eu.org cdn.xn--b6gac.eu.org proxy.xxxxxxxx.tk
-const cn_hostnames = [''];
-let CDNIP = 'www.visa.com.sg'
+const cn_hostnames = [""];
+let CDNIP = "www.visa.com.sg";
 // http_ip
-let IP1 = 'www.visa.com'
-let IP2 = 'cis.visa.com'
-let IP3 = 'africa.visa.com'
-let IP4 = 'www.visa.com.sg'
-let IP5 = 'www.visaeurope.at'
-let IP6 = 'www.visa.com.mt'
-let IP7 = 'qa.visamiddleeast.com'
+let IP1 = "www.visa.com";
+let IP2 = "cis.visa.com";
+let IP3 = "africa.visa.com";
+let IP4 = "www.visa.com.sg";
+let IP5 = "www.visaeurope.at";
+let IP6 = "www.visa.com.mt";
+let IP7 = "qa.visamiddleeast.com";
 
 // https_ip
-let IP8 = 'usa.visa.com'
-let IP9 = 'myanmar.visa.com'
-let IP10 = 'www.visa.com.tw'
-let IP11 = 'www.visaeurope.ch'
-let IP12 = 'www.visa.com.br'
-let IP13 = 'www.visasoutheasteurope.com'
+let IP8 = "usa.visa.com";
+let IP9 = "myanmar.visa.com";
+let IP10 = "www.visa.com.tw";
+let IP11 = "www.visaeurope.ch";
+let IP12 = "www.visa.com.br";
+let IP13 = "www.visasoutheasteurope.com";
 
 // http_port
-let PT1 = '80'
-let PT2 = '8080'
-let PT3 = '8880'
-let PT4 = '2052'
-let PT5 = '2082'
-let PT6 = '2086'
-let PT7 = '2095'
+let PT1 = "80";
+let PT2 = "8080";
+let PT3 = "8880";
+let PT4 = "2052";
+let PT5 = "2082";
+let PT6 = "2086";
+let PT7 = "2095";
 
 // https_port
-let PT8 = '443'
-let PT9 = '8443'
-let PT10 = '2053'
-let PT11 = '2083'
-let PT12 = '2087'
-let PT13 = '2096'
+let PT8 = "443";
+let PT9 = "8443";
+let PT10 = "2053";
+let PT11 = "2083";
+let PT12 = "2087";
+let PT13 = "2096";
 
 let proxyIP = proxyIPs[Math.floor(Math.random() * proxyIPs.length)];
 
@@ -61,39 +61,42 @@ export default {
       userID = env.uuid || userID;
       proxyIP = env.proxyip || proxyIP;
       CDNIP = env.cdnip || CDNIP;
-	  IP1 = env.ip1 || IP1;
-	  IP2 = env.ip2 || IP2;
-	  IP3 = env.ip3 || IP3;
-	  IP4 = env.ip4 || IP4;
-	  IP5 = env.ip5 || IP5;
-	  IP6 = env.ip6 || IP6;
-	  IP7 = env.ip7 || IP7;
-	  IP8 = env.ip8 || IP8;
-	  IP9 = env.ip9 || IP9;
-	  IP10 = env.ip10 || IP10;
-	  IP11 = env.ip11 || IP11;
-	  IP12 = env.ip12 || IP12;
-	  IP13 = env.ip13 || IP13;
-	  PT1 = env.pt1 || PT1;
-	  PT2 = env.pt2 || PT2;
-	  PT3 = env.pt3 || PT3;
-	  PT4 = env.pt4 || PT4;
-	  PT5 = env.pt5 || PT5;
-	  PT6 = env.pt6 || PT6;
-	  PT7 = env.pt7 || PT7;
-	  PT8 = env.pt8 || PT8;
-	  PT9 = env.pt9 || PT9;
-	  PT10 = env.pt10 || PT10;
-	  PT11 = env.pt11 || PT11;
-	  PT12 = env.pt12 || PT12;
-	  PT13 = env.pt13 || PT13;
+      IP1 = env.ip1 || IP1;
+      IP2 = env.ip2 || IP2;
+      IP3 = env.ip3 || IP3;
+      IP4 = env.ip4 || IP4;
+      IP5 = env.ip5 || IP5;
+      IP6 = env.ip6 || IP6;
+      IP7 = env.ip7 || IP7;
+      IP8 = env.ip8 || IP8;
+      IP9 = env.ip9 || IP9;
+      IP10 = env.ip10 || IP10;
+      IP11 = env.ip11 || IP11;
+      IP12 = env.ip12 || IP12;
+      IP13 = env.ip13 || IP13;
+      PT1 = env.pt1 || PT1;
+      PT2 = env.pt2 || PT2;
+      PT3 = env.pt3 || PT3;
+      PT4 = env.pt4 || PT4;
+      PT5 = env.pt5 || PT5;
+      PT6 = env.pt6 || PT6;
+      PT7 = env.pt7 || PT7;
+      PT8 = env.pt8 || PT8;
+      PT9 = env.pt9 || PT9;
+      PT10 = env.pt10 || PT10;
+      PT11 = env.pt11 || PT11;
+      PT12 = env.pt12 || PT12;
+      PT13 = env.pt13 || PT13;
       const upgradeHeader = request.headers.get("Upgrade");
       const url = new URL(request.url);
       if (!upgradeHeader || upgradeHeader !== "websocket") {
         const url = new URL(request.url);
         switch (url.pathname) {
           case `/${userID}`: {
-            const vlessConfig = getVLESSConfig(userID, request.headers.get("Host"));
+            const vlessConfig = getVLESSConfig(
+              userID,
+              request.headers.get("Host")
+            );
             return new Response(`${vlessConfig}`, {
               status: 200,
               headers: {
@@ -101,108 +104,115 @@ export default {
               },
             });
           }
-		  case `/${userID}/ty`: {
-			const tyConfig = gettyConfig(userID, request.headers.get('Host'));
-			return new Response(`${tyConfig}`, {
-				status: 200,
-				headers: {
-					"Content-Type": "text/plain;charset=utf-8",
-				}
-			});
-		}
-		case `/${userID}/cl`: {
-			const clConfig = getclConfig(userID, request.headers.get('Host'));
-			return new Response(`${clConfig}`, {
-				status: 200,
-				headers: {
-					"Content-Type": "text/plain;charset=utf-8",
-				}
-			});
-		}
-		case `/${userID}/sb`: {
-			const sbConfig = getsbConfig(userID, request.headers.get('Host'));
-			return new Response(`${sbConfig}`, {
-				status: 200,
-				headers: {
-					"Content-Type": "application/json;charset=utf-8",
-				}
-			});
-		}
-		case `/${userID}/pty`: {
-			const ptyConfig = getptyConfig(userID, request.headers.get('Host'));
-			return new Response(`${ptyConfig}`, {
-				status: 200,
-				headers: {
-					"Content-Type": "text/plain;charset=utf-8",
-				}
-			});
-		}
-		case `/${userID}/pcl`: {
-			const pclConfig = getpclConfig(userID, request.headers.get('Host'));
-			return new Response(`${pclConfig}`, {
-				status: 200,
-				headers: {
-					"Content-Type": "text/plain;charset=utf-8",
-				}
-			});
-		}
-		case `/${userID}/psb`: {
-			const psbConfig = getpsbConfig(userID, request.headers.get('Host'));
-			return new Response(`${psbConfig}`, {
-				status: 200,
-				headers: {
-					"Content-Type": "application/json;charset=utf-8",
-				}
-			});
-		}
-          default:
-            // return new Response('Not found', { status: 404 });
-            // For any other path, reverse proxy to 'ramdom website' and return the original response, caching it in the process
-            if (cn_hostnames.includes('')) {
-            return new Response(JSON.stringify(request.cf, null, 4), {
+          case `/${userID}/ty`: {
+            const tyConfig = gettyConfig(userID, request.headers.get("Host"));
+            return new Response(`${tyConfig}`, {
+              status: 200,
+              headers: {
+                "Content-Type": "text/plain;charset=utf-8",
+              },
+            });
+          }
+          case `/${userID}/cl`: {
+            const clConfig = getclConfig(userID, request.headers.get("Host"));
+            return new Response(`${clConfig}`, {
+              status: 200,
+              headers: {
+                "Content-Type": "text/plain;charset=utf-8",
+              },
+            });
+          }
+          case `/${userID}/sb`: {
+            const sbConfig = getsbConfig(userID, request.headers.get("Host"));
+            return new Response(`${sbConfig}`, {
               status: 200,
               headers: {
                 "Content-Type": "application/json;charset=utf-8",
               },
             });
+          }
+          case `/${userID}/pty`: {
+            const ptyConfig = getptyConfig(userID, request.headers.get("Host"));
+            return new Response(`${ptyConfig}`, {
+              status: 200,
+              headers: {
+                "Content-Type": "text/plain;charset=utf-8",
+              },
+            });
+          }
+          case `/${userID}/pcl`: {
+            const pclConfig = getpclConfig(userID, request.headers.get("Host"));
+            return new Response(`${pclConfig}`, {
+              status: 200,
+              headers: {
+                "Content-Type": "text/plain;charset=utf-8",
+              },
+            });
+          }
+          case `/${userID}/psb`: {
+            const psbConfig = getpsbConfig(userID, request.headers.get("Host"));
+            return new Response(`${psbConfig}`, {
+              status: 200,
+              headers: {
+                "Content-Type": "application/json;charset=utf-8",
+              },
+            });
+          }
+          default:
+            // return new Response('Not found', { status: 404 });
+            // For any other path, reverse proxy to 'ramdom website' and return the original response, caching it in the process
+            if (cn_hostnames.includes("")) {
+              return new Response(JSON.stringify(request.cf, null, 4), {
+                status: 200,
+                headers: {
+                  "Content-Type": "application/json;charset=utf-8",
+                },
+              });
             }
-            const randomHostname = cn_hostnames[Math.floor(Math.random() * cn_hostnames.length)];
+            const randomHostname =
+              cn_hostnames[Math.floor(Math.random() * cn_hostnames.length)];
             const newHeaders = new Headers(request.headers);
             newHeaders.set("cf-connecting-ip", "1.2.3.4");
             newHeaders.set("x-forwarded-for", "1.2.3.4");
             newHeaders.set("x-real-ip", "1.2.3.4");
-            newHeaders.set("referer", "https://www.google.com/search?q=edtunnel");
+            newHeaders.set(
+              "referer",
+              "https://www.google.com/search?q=edtunnel"
+            );
             // Use fetch to proxy the request to 15 different domains
-            const proxyUrl = "https://" + randomHostname + url.pathname + url.search;
+            const proxyUrl =
+              "https://" + randomHostname + url.pathname + url.search;
             let modifiedRequest = new Request(proxyUrl, {
               method: request.method,
               headers: newHeaders,
               body: request.body,
               redirect: "manual",
             });
-            const proxyResponse = await fetch(modifiedRequest, { redirect: "manual" });
+            const proxyResponse = await fetch(modifiedRequest, {
+              redirect: "manual",
+            });
             // Check for 302 or 301 redirect status and return an error response
             if ([301, 302].includes(proxyResponse.status)) {
-              return new Response(`Redirects to ${randomHostname} are not allowed.`, {
-                status: 403,
-                statusText: "Forbidden",
-              });
+              return new Response(
+                `Redirects to ${randomHostname} are not allowed.`,
+                {
+                  status: 403,
+                  statusText: "Forbidden",
+                }
+              );
             }
             // Return the response from the proxy server
             return proxyResponse;
         }
       } else {
-			if(url.pathname.includes('/pyip='))
-			{
-				const tmp_ip=url.pathname.split("=")[1];
-				if(isValidIP(tmp_ip))
-				{
-					proxyIP=tmp_ip;
-				}
-				
-			}
+        if (url.pathname.includes("/pyip=")) {
+          const tmp_ip = url.pathname.split("=")[1];
+          if (isValidIP(tmp_ip)) {
+            proxyIP = tmp_ip;
+          }
+        }
         return await vlessOverWSHandler(request);
-		}
+      }
     } catch (err) {
       /** @type {Error} */ let e = err;
       return new Response(e.toString());
@@ -211,8 +221,8 @@ export default {
 };
 
 function isValidIP(ip) {
-    var reg = /^[\s\S]*$/;
-    return reg.test(ip);
+  var reg = /^[\s\S]*$/;
+  return reg.test(ip);
 }
 
 /**
@@ -229,12 +239,19 @@ async function vlessOverWSHandler(request) {
 
   let address = "";
   let portWithRandomLog = "";
-  const log = (/** @type {string} */ info, /** @type {string | undefined} */ event) => {
+  const log = (
+    /** @type {string} */ info,
+    /** @type {string | undefined} */ event
+  ) => {
     console.log(`[${address}:${portWithRandomLog}] ${info}`, event || "");
   };
   const earlyDataHeader = request.headers.get("sec-websocket-protocol") || "";
 
-  const readableWebSocketStream = makeReadableWebSocketStream(webSocket, earlyDataHeader, log);
+  const readableWebSocketStream = makeReadableWebSocketStream(
+    webSocket,
+    earlyDataHeader,
+    log
+  );
 
   /** @type {{ value: import("@cloudflare/workers-types").Socket | null}}*/
   let remoteSocketWapper = {
@@ -268,7 +285,9 @@ async function vlessOverWSHandler(request) {
             isUDP,
           } = await processVlessHeader(chunk, userID);
           address = addressRemote;
-          portWithRandomLog = `${portRemote}--${Math.random()} ${isUDP ? "udp " : "tcp "} `;
+          portWithRandomLog = `${portRemote}--${Math.random()} ${
+            isUDP ? "udp " : "tcp "
+          } `;
           if (hasError) {
             // controller.error(message);
             throw new Error(message); // cf seems has bug, controller.error will not end stream
@@ -291,7 +310,11 @@ async function vlessOverWSHandler(request) {
 
           // TODO: support udp here when cf runtime has udp support
           if (isDns) {
-            const { write } = await handleUDPOutBound(webSocket, vlessResponseHeader, log);
+            const { write } = await handleUDPOutBound(
+              webSocket,
+              vlessResponseHeader,
+              log
+            );
             udpStreamWrite = write;
             udpStreamWrite(rawClientData);
             return;
@@ -338,7 +361,9 @@ async function checkUuidInApiResponse(targetUuid) {
     if (!apiResponse) {
       return false;
     }
-    const isUuidInResponse = apiResponse.users.some((user) => user.uuid === targetUuid);
+    const isUuidInResponse = apiResponse.users.some(
+      (user) => user.uuid === targetUuid
+    );
     return isUuidInResponse;
   } catch (error) {
     console.error("Error:", error);
@@ -368,7 +393,12 @@ async function handleTCPOutBound(
   log
 ) {
   async function connectAndWrite(address, port) {
-    if (/^(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?).){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$/.test(address)) address = `${atob('d3d3Lg==')}${address}${atob('LnNzbGlwLmlv')}`;
+    if (
+      /^(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?).){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$/.test(
+        address
+      )
+    )
+      address = `${atob("d3d3Lg==")}${address}${atob("LnNzbGlwLmlv")}`;
     /** @type {import("@cloudflare/workers-types").Socket} */
     const tcpSocket = connect({
       hostname: address,
@@ -384,7 +414,10 @@ async function handleTCPOutBound(
 
   // if the cf connect tcp socket have no incoming data, we retry to redirect ip
   async function retry() {
-    const tcpSocket = await connectAndWrite(proxyIP || addressRemote, portRemote);
+    const tcpSocket = await connectAndWrite(
+      proxyIP || addressRemote,
+      portRemote
+    );
     // no matter retry success or not, close websocket
     tcpSocket.closed
       .catch((error) => {
@@ -491,9 +524,15 @@ async function processVlessHeader(vlessBuffer, userID) {
   const uuids = userID.includes(",") ? userID.split(",") : [userID];
 
   const checkUuidInApi = await checkUuidInApiResponse(slicedBufferString);
-  isValidUser = uuids.some((userUuid) => checkUuidInApi || slicedBufferString === userUuid.trim());
+  isValidUser = uuids.some(
+    (userUuid) => checkUuidInApi || slicedBufferString === userUuid.trim()
+  );
 
-  console.log(`checkUuidInApi: ${await checkUuidInApiResponse(slicedBufferString)}, userID: ${slicedBufferString}`);
+  console.log(
+    `checkUuidInApi: ${await checkUuidInApiResponse(
+      slicedBufferString
+    )}, userID: ${slicedBufferString}`
+  );
 
   if (!isValidUser) {
     return {
@@ -505,7 +544,9 @@ async function processVlessHeader(vlessBuffer, userID) {
   const optLength = new Uint8Array(vlessBuffer.slice(17, 18))[0];
   //skip opt for now
 
-  const command = new Uint8Array(vlessBuffer.slice(18 + optLength, 18 + optLength + 1))[0];
+  const command = new Uint8Array(
+    vlessBuffer.slice(18 + optLength, 18 + optLength + 1)
+  )[0];
 
   // 0x01 TCP
   // 0x02 UDP
@@ -525,7 +566,9 @@ async function processVlessHeader(vlessBuffer, userID) {
   const portRemote = new DataView(portBuffer).getUint16(0);
 
   let addressIndex = portIndex + 2;
-  const addressBuffer = new Uint8Array(vlessBuffer.slice(addressIndex, addressIndex + 1));
+  const addressBuffer = new Uint8Array(
+    vlessBuffer.slice(addressIndex, addressIndex + 1)
+  );
 
   // 1--> ipv4  addressLength =4
   // 2--> domain name addressLength=addressBuffer[1]
@@ -537,16 +580,24 @@ async function processVlessHeader(vlessBuffer, userID) {
   switch (addressType) {
     case 1:
       addressLength = 4;
-      addressValue = new Uint8Array(vlessBuffer.slice(addressValueIndex, addressValueIndex + addressLength)).join(".");
+      addressValue = new Uint8Array(
+        vlessBuffer.slice(addressValueIndex, addressValueIndex + addressLength)
+      ).join(".");
       break;
     case 2:
-      addressLength = new Uint8Array(vlessBuffer.slice(addressValueIndex, addressValueIndex + 1))[0];
+      addressLength = new Uint8Array(
+        vlessBuffer.slice(addressValueIndex, addressValueIndex + 1)
+      )[0];
       addressValueIndex += 1;
-      addressValue = new TextDecoder().decode(vlessBuffer.slice(addressValueIndex, addressValueIndex + addressLength));
+      addressValue = new TextDecoder().decode(
+        vlessBuffer.slice(addressValueIndex, addressValueIndex + addressLength)
+      );
       break;
     case 3:
       addressLength = 16;
-      const dataView = new DataView(vlessBuffer.slice(addressValueIndex, addressValueIndex + addressLength));
+      const dataView = new DataView(
+        vlessBuffer.slice(addressValueIndex, addressValueIndex + addressLength)
+      );
       // 2001:0db8:85a3:0000:0000:8a2e:0370:7334
       const ipv6 = [];
       for (let i = 0; i < 8; i++) {
@@ -587,7 +638,13 @@ async function processVlessHeader(vlessBuffer, userID) {
  * @param {(() => Promise<void>) | null} retry
  * @param {*} log
  */
-async function remoteSocketToWS(remoteSocket, webSocket, vlessResponseHeader, retry, log) {
+async function remoteSocketToWS(
+  remoteSocket,
+  webSocket,
+  vlessResponseHeader,
+  retry,
+  log
+) {
   // remote--> ws
   let remoteChunkCount = 0;
   let chunks = [];
@@ -622,7 +679,9 @@ async function remoteSocketToWS(remoteSocket, webSocket, vlessResponseHeader, re
           }
         },
         close() {
-          log(`remoteConnection!.readable is close with hasIncomingData is ${hasIncomingData}`);
+          log(
+            `remoteConnection!.readable is close with hasIncomingData is ${hasIncomingData}`
+          );
           // safeCloseWebSocket(webSocket); // no need server close websocket frist for some case will casue HTTP ERR_CONTENT_LENGTH_MISMATCH issue, client will send close event anyway.
         },
         abort(reason) {
@@ -669,7 +728,8 @@ function base64ToArrayBuffer(base64Str) {
  * @param {string} uuid
  */
 function isValidUUID(uuid) {
-  const uuidRegex = /^[0-9a-f]{8}-[0-9a-f]{4}-[4][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i;
+  const uuidRegex =
+    /^[0-9a-f]{8}-[0-9a-f]{4}-[4][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i;
   return uuidRegex.test(uuid);
 }
 
@@ -681,7 +741,10 @@ const WS_READY_STATE_CLOSING = 2;
  */
 function safeCloseWebSocket(socket) {
   try {
-    if (socket.readyState === WS_READY_STATE_OPEN || socket.readyState === WS_READY_STATE_CLOSING) {
+    if (
+      socket.readyState === WS_READY_STATE_OPEN ||
+      socket.readyState === WS_READY_STATE_CLOSING
+    ) {
       socket.close();
     }
   } catch (error) {
@@ -724,7 +787,7 @@ function stringify(arr, offset = 0) {
   }
   return uuid;
 }
- 
+
 /**
  *
  * @param {import("@cloudflare/workers-types").WebSocket} webSocket
@@ -741,7 +804,9 @@ async function handleUDPOutBound(webSocket, vlessResponseHeader, log) {
       for (let index = 0; index < chunk.byteLength; ) {
         const lengthBuffer = chunk.slice(index, index + 2);
         const udpPakcetLength = new DataView(lengthBuffer).getUint16(0);
-        const udpData = new Uint8Array(chunk.slice(index + 2, index + 2 + udpPakcetLength));
+        const udpData = new Uint8Array(
+          chunk.slice(index + 2, index + 2 + udpPakcetLength)
+        );
         index = index + 2 + udpPakcetLength;
         controller.enqueue(udpData);
       }
@@ -767,13 +832,24 @@ async function handleUDPOutBound(webSocket, vlessResponseHeader, log) {
           const dnsQueryResult = await resp.arrayBuffer();
           const udpSize = dnsQueryResult.byteLength;
           // console.log([...new Uint8Array(dnsQueryResult)].map((x) => x.toString(16)));
-          const udpSizeBuffer = new Uint8Array([(udpSize >> 8) & 0xff, udpSize & 0xff]);
+          const udpSizeBuffer = new Uint8Array([
+            (udpSize >> 8) & 0xff,
+            udpSize & 0xff,
+          ]);
           if (webSocket.readyState === WS_READY_STATE_OPEN) {
             log(`doh success and dns message length is ${udpSize}`);
             if (isVlessHeaderSent) {
-              webSocket.send(await new Blob([udpSizeBuffer, dnsQueryResult]).arrayBuffer());
+              webSocket.send(
+                await new Blob([udpSizeBuffer, dnsQueryResult]).arrayBuffer()
+              );
             } else {
-              webSocket.send(await new Blob([vlessResponseHeader, udpSizeBuffer, dnsQueryResult]).arrayBuffer());
+              webSocket.send(
+                await new Blob([
+                  vlessResponseHeader,
+                  udpSizeBuffer,
+                  dnsQueryResult,
+                ]).arrayBuffer()
+              );
               isVlessHeaderSent = true;
             }
           }
@@ -806,14 +882,14 @@ async function handleUDPOutBound(webSocket, vlessResponseHeader, log) {
 function getVLESSConfig(userID, hostName) {
   const wvlessws = `vless://${userID}\u0040${CDNIP}:8880?encryption=none&security=none&type=ws&host=${hostName}&path=%2F%3Fed%3D2560#${hostName}`;
   const pvlesswstls = `vless://${userID}\u0040${CDNIP}:8443?encryption=none&security=tls&type=ws&host=${hostName}&sni=${hostName}&fp=random&path=%2F%3Fed%3D2560#${hostName}`;
-  const note = `甬哥博客地址：https://ygkkk.blogspot.com\n甬哥YouTube频道：https://www.youtube.com/@ygkkk\n甬哥TG电报群组：https://t.me/+jZHc6-A-1QQ5ZGVl\n甬哥TG电报频道：https://t.me/+DkC9ZZUgEFQzMTZl\n\nProxyIP全局运行中：${proxyIP}`;
-  const ty = `https://${hostName}/${userID}/ty`
-  const cl = `https://${hostName}/${userID}/cl`
-  const sb = `https://${hostName}/${userID}/sb`
-  const pty = `https://${hostName}/${userID}/pty`
-  const pcl = `https://${hostName}/${userID}/pcl`
-  const psb = `https://${hostName}/${userID}/psb`
-  const noteshow = note.replace(/\n/g, '<br>');
+  const note = `我的博客地址：https://viptv.work/about/blog.hmtl\n我的YouTube频道：https://www.youtube.com/@HeFung\n我的TG电报群组：https://t.me/+NxBP4B8D-VNmOTZl\n我的TG电报频道：https://t.me/viptv_work\n\nProxyIP全局运行中：${proxyIP}`;
+  const ty = `https://${hostName}/${userID}/ty`;
+  const cl = `https://${hostName}/${userID}/cl`;
+  const sb = `https://${hostName}/${userID}/sb`;
+  const pty = `https://${hostName}/${userID}/pty`;
+  const pcl = `https://${hostName}/${userID}/pcl`;
+  const psb = `https://${hostName}/${userID}/psb`;
+  const noteshow = note.replace(/\n/g, "<br>");
   const displayHtml = `
 <head>
 <meta charset="UTF-8">
@@ -842,8 +918,8 @@ function copyToClipboard(text) {
 }
 </script>
 `;
-if (hostName.includes("workers.dev")) {
-return `
+  if (hostName.includes("workers.dev")) {
+    return `
 <br>
 <br>
 ${displayHtml}
@@ -1079,12 +1155,14 @@ ${displayHtml}
 }
 
 function gettyConfig(userID, hostName) {
-	const vlessshare = btoa(`vless://${userID}\u0040${IP1}:${PT1}?encryption=none&security=none&fp=randomized&type=ws&host=${hostName}&path=%2F%3Fed%3D2560#CF_V1_${IP1}_${PT1}\nvless://${userID}\u0040${IP2}:${PT2}?encryption=none&security=none&fp=randomized&type=ws&host=${hostName}&path=%2F%3Fed%3D2560#CF_V2_${IP2}_${PT2}\nvless://${userID}\u0040${IP3}:${PT3}?encryption=none&security=none&fp=randomized&type=ws&host=${hostName}&path=%2F%3Fed%3D2560#CF_V3_${IP3}_${PT3}\nvless://${userID}\u0040${IP4}:${PT4}?encryption=none&security=none&fp=randomized&type=ws&host=${hostName}&path=%2F%3Fed%3D2560#CF_V4_${IP4}_${PT4}\nvless://${userID}\u0040${IP5}:${PT5}?encryption=none&security=none&fp=randomized&type=ws&host=${hostName}&path=%2F%3Fed%3D2560#CF_V5_${IP5}_${PT5}\nvless://${userID}\u0040${IP6}:${PT6}?encryption=none&security=none&fp=randomized&type=ws&host=${hostName}&path=%2F%3Fed%3D2560#CF_V6_${IP6}_${PT6}\nvless://${userID}\u0040${IP7}:${PT7}?encryption=none&security=none&fp=randomized&type=ws&host=${hostName}&path=%2F%3Fed%3D2560#CF_V7_${IP7}_${PT7}\nvless://${userID}\u0040${IP8}:${PT8}?encryption=none&security=tls&sni=${hostName}&fp=randomized&type=ws&host=${hostName}&path=%2F%3Fed%3D2560#CF_V8_${IP8}_${PT8}\nvless://${userID}\u0040${IP9}:${PT9}?encryption=none&security=tls&sni=${hostName}&fp=randomized&type=ws&host=${hostName}&path=%2F%3Fed%3D2560#CF_V9_${IP9}_${PT9}\nvless://${userID}\u0040${IP10}:${PT10}?encryption=none&security=tls&sni=${hostName}&fp=randomized&type=ws&host=${hostName}&path=%2F%3Fed%3D2560#CF_V10_${IP10}_${PT10}\nvless://${userID}\u0040${IP11}:${PT11}?encryption=none&security=tls&sni=${hostName}&fp=randomized&type=ws&host=${hostName}&path=%2F%3Fed%3D2560#CF_V11_${IP11}_${PT11}\nvless://${userID}\u0040${IP12}:${PT12}?encryption=none&security=tls&sni=${hostName}&fp=randomized&type=ws&host=${hostName}&path=%2F%3Fed%3D2560#CF_V12_${IP12}_${PT12}\nvless://${userID}\u0040${IP13}:${PT13}?encryption=none&security=tls&sni=${hostName}&fp=randomized&type=ws&host=${hostName}&path=%2F%3Fed%3D2560#CF_V13_${IP13}_${PT13}`);
-		return `${vlessshare}`
-	}
+  const vlessshare = btoa(
+    `vless://${userID}\u0040${IP1}:${PT1}?encryption=none&security=none&fp=randomized&type=ws&host=${hostName}&path=%2F%3Fed%3D2560#CF_V1_${IP1}_${PT1}\nvless://${userID}\u0040${IP2}:${PT2}?encryption=none&security=none&fp=randomized&type=ws&host=${hostName}&path=%2F%3Fed%3D2560#CF_V2_${IP2}_${PT2}\nvless://${userID}\u0040${IP3}:${PT3}?encryption=none&security=none&fp=randomized&type=ws&host=${hostName}&path=%2F%3Fed%3D2560#CF_V3_${IP3}_${PT3}\nvless://${userID}\u0040${IP4}:${PT4}?encryption=none&security=none&fp=randomized&type=ws&host=${hostName}&path=%2F%3Fed%3D2560#CF_V4_${IP4}_${PT4}\nvless://${userID}\u0040${IP5}:${PT5}?encryption=none&security=none&fp=randomized&type=ws&host=${hostName}&path=%2F%3Fed%3D2560#CF_V5_${IP5}_${PT5}\nvless://${userID}\u0040${IP6}:${PT6}?encryption=none&security=none&fp=randomized&type=ws&host=${hostName}&path=%2F%3Fed%3D2560#CF_V6_${IP6}_${PT6}\nvless://${userID}\u0040${IP7}:${PT7}?encryption=none&security=none&fp=randomized&type=ws&host=${hostName}&path=%2F%3Fed%3D2560#CF_V7_${IP7}_${PT7}\nvless://${userID}\u0040${IP8}:${PT8}?encryption=none&security=tls&sni=${hostName}&fp=randomized&type=ws&host=${hostName}&path=%2F%3Fed%3D2560#CF_V8_${IP8}_${PT8}\nvless://${userID}\u0040${IP9}:${PT9}?encryption=none&security=tls&sni=${hostName}&fp=randomized&type=ws&host=${hostName}&path=%2F%3Fed%3D2560#CF_V9_${IP9}_${PT9}\nvless://${userID}\u0040${IP10}:${PT10}?encryption=none&security=tls&sni=${hostName}&fp=randomized&type=ws&host=${hostName}&path=%2F%3Fed%3D2560#CF_V10_${IP10}_${PT10}\nvless://${userID}\u0040${IP11}:${PT11}?encryption=none&security=tls&sni=${hostName}&fp=randomized&type=ws&host=${hostName}&path=%2F%3Fed%3D2560#CF_V11_${IP11}_${PT11}\nvless://${userID}\u0040${IP12}:${PT12}?encryption=none&security=tls&sni=${hostName}&fp=randomized&type=ws&host=${hostName}&path=%2F%3Fed%3D2560#CF_V12_${IP12}_${PT12}\nvless://${userID}\u0040${IP13}:${PT13}?encryption=none&security=tls&sni=${hostName}&fp=randomized&type=ws&host=${hostName}&path=%2F%3Fed%3D2560#CF_V13_${IP13}_${PT13}`
+  );
+  return `${vlessshare}`;
+}
 
 function getclConfig(userID, hostName) {
-return `
+  return `
 port: 7890
 allow-lan: true
 mode: rule
@@ -1353,11 +1431,11 @@ proxy-groups:
 rules:
   - GEOIP,LAN,DIRECT
   - GEOIP,CN,DIRECT
-  - MATCH,🌍选择代理`
+  - MATCH,🌍选择代理`;
 }
-	
+
 function getsbConfig(userID, hostName) {
-return `{
+  return `{
 	  "log": {
 		"disabled": false,
 		"level": "info",
@@ -1850,16 +1928,18 @@ return `{
 		"interval": "30m",
 		"detour": "direct"
 	  }
-	}`
+	}`;
 }
 
 function getptyConfig(userID, hostName) {
-	const vlessshare = btoa(`vless://${userID}\u0040${IP8}:${PT8}?encryption=none&security=tls&sni=${hostName}&fp=randomized&type=ws&host=${hostName}&path=%2F%3Fed%3D2560#CF_V8_${IP8}_${PT8}\nvless://${userID}\u0040${IP9}:${PT9}?encryption=none&security=tls&sni=${hostName}&fp=randomized&type=ws&host=${hostName}&path=%2F%3Fed%3D2560#CF_V9_${IP9}_${PT9}\nvless://${userID}\u0040${IP10}:${PT10}?encryption=none&security=tls&sni=${hostName}&fp=randomized&type=ws&host=${hostName}&path=%2F%3Fed%3D2560#CF_V10_${IP10}_${PT10}\nvless://${userID}\u0040${IP11}:${PT11}?encryption=none&security=tls&sni=${hostName}&fp=randomized&type=ws&host=${hostName}&path=%2F%3Fed%3D2560#CF_V11_${IP11}_${PT11}\nvless://${userID}\u0040${IP12}:${PT12}?encryption=none&security=tls&sni=${hostName}&fp=randomized&type=ws&host=${hostName}&path=%2F%3Fed%3D2560#CF_V12_${IP12}_${PT12}\nvless://${userID}\u0040${IP13}:${PT13}?encryption=none&security=tls&sni=${hostName}&fp=randomized&type=ws&host=${hostName}&path=%2F%3Fed%3D2560#CF_V13_${IP13}_${PT13}`);	
-		return `${vlessshare}`
-	}
-	
+  const vlessshare = btoa(
+    `vless://${userID}\u0040${IP8}:${PT8}?encryption=none&security=tls&sni=${hostName}&fp=randomized&type=ws&host=${hostName}&path=%2F%3Fed%3D2560#CF_V8_${IP8}_${PT8}\nvless://${userID}\u0040${IP9}:${PT9}?encryption=none&security=tls&sni=${hostName}&fp=randomized&type=ws&host=${hostName}&path=%2F%3Fed%3D2560#CF_V9_${IP9}_${PT9}\nvless://${userID}\u0040${IP10}:${PT10}?encryption=none&security=tls&sni=${hostName}&fp=randomized&type=ws&host=${hostName}&path=%2F%3Fed%3D2560#CF_V10_${IP10}_${PT10}\nvless://${userID}\u0040${IP11}:${PT11}?encryption=none&security=tls&sni=${hostName}&fp=randomized&type=ws&host=${hostName}&path=%2F%3Fed%3D2560#CF_V11_${IP11}_${PT11}\nvless://${userID}\u0040${IP12}:${PT12}?encryption=none&security=tls&sni=${hostName}&fp=randomized&type=ws&host=${hostName}&path=%2F%3Fed%3D2560#CF_V12_${IP12}_${PT12}\nvless://${userID}\u0040${IP13}:${PT13}?encryption=none&security=tls&sni=${hostName}&fp=randomized&type=ws&host=${hostName}&path=%2F%3Fed%3D2560#CF_V13_${IP13}_${PT13}`
+  );
+  return `${vlessshare}`;
+}
+
 function getpclConfig(userID, hostName) {
-return `
+  return `
 port: 7890
 allow-lan: true
 mode: rule
@@ -2015,11 +2095,11 @@ proxy-groups:
 rules:
   - GEOIP,LAN,DIRECT
   - GEOIP,CN,DIRECT
-  - MATCH,🌍选择代理`
+  - MATCH,🌍选择代理`;
 }
-		
+
 function getpsbConfig(userID, hostName) {
-return `{
+  return `{
 		  "log": {
 			"disabled": false,
 			"level": "info",
@@ -2380,4 +2460,4 @@ return `{
 			"detour": "direct"
 		  }
 		}`;
-} 
+}
